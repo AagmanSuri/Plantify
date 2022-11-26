@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // @mui material components
 import Grid from "@mui/material/Grid";
@@ -20,10 +20,63 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import { useLocation, NavLink } from "react-router-dom";
+
 function Dashboard() {
+  const [data, setData] = useState([]);
+  const [tempField, setTempField] = useState([]);
+  const [createdAt, setCreatedAt] = useState([]);
+  useEffect(() => {
+    fetch(
+      "https://api.thingspeak.com/channels/1945231/feeds.json?api_key=Z14F9ZWPU177Z30I&results=10"
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+      });
+    // .then(() => {
+    //   // const tempFieldinput1 = data?.feeds?.map((item) => {
+    //   //   return item?.field1;
+    //   // });
+    //   // const createdAtInput = data?.feeds?.map((item) => {
+    //   //   return item?.created_at;
+    //   // });
+    //   setTempField(
+    //     data?.feeds?.map((item) => {
+    //       return item?.field1;
+    //     })
+    //   );
+    //   setCreatedAt(
+    //     data?.feeds?.map((item) => {
+    //       return item?.created_at;
+    //     })
+    //   );
+    // });
+  }, []);
+
+  const tempFieldinput1 = data?.feeds?.map((item) => {
+    return item?.field1;
+  });
+  const createdAtInput = data?.feeds?.map((item) => {
+    return item?.created_at;
+  });
+
+  useEffect(() => {
+    setTempField(
+      data?.feeds?.map((item) => {
+        return item?.field1;
+      })
+    );
+    setCreatedAt(
+      data?.feeds?.map((item) => {
+        return item?.created_at;
+      })
+    );
+  }, []);
+
   const { sales, tasks } = reportsLineChartData;
 
   const [TemperatueField, setTemperatueField] = useState(2);
+
   return (
     <DashboardLayout>
       {/* <DashboardNavbar /> */}
@@ -39,7 +92,7 @@ function Dashboard() {
                 percentage={{
                   // color: "success",
                   // amount: "+55%",
-                  label: "Total feed entries",
+                  label: "Total feed entries"
                 }}
               />
             </MDBox>
@@ -53,7 +106,7 @@ function Dashboard() {
                 percentage={{
                   // color: "success",
                   // amount: "+3%",
-                  label: "Last detected temperature",
+                  label: "Last detected temperature"
                 }}
               />
             </MDBox>
@@ -68,7 +121,7 @@ function Dashboard() {
                 percentage={{
                   // color: "success",
                   // amount: "+1%",
-                  label: "Last detected humidity",
+                  label: "Last detected humidity"
                 }}
               />
             </MDBox>
@@ -83,7 +136,7 @@ function Dashboard() {
                 percentage={{
                   // color: "success",
                   // amount: "",
-                  label: "Last detected Soil Moisture",
+                  label: "Last detected Soil Moisture"
                 }}
               />
             </MDBox>
@@ -100,12 +153,18 @@ function Dashboard() {
               > */}
               <NavLink key="temperature" to="/temperature">
                 <MDBox mb={3}>
-                  <ReportsBarChart
+                  <ReportsLineChart
                     color="info"
                     title="Temperature"
                     description="Temperature detected"
                     date="last detected"
-                    chart={reportsBarChartData}
+                    chart={{
+                      labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                      datasets: {
+                        label: "Temperature",
+                        data: tempField
+                      }
+                    }}
                   />
                 </MDBox>
               </NavLink>
@@ -124,7 +183,13 @@ function Dashboard() {
                       "Humidity detected"
                     }
                     date="last detected"
-                    chart={sales}
+                    chart={{
+                      labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                      datasets: {
+                        label: "Temperature",
+                        data: tempField
+                      }
+                    }}
                   />
                 </MDBox>
               </NavLink>
@@ -156,6 +221,7 @@ function Dashboard() {
         </MDBox>
       </MDBox>
       {/* <Footer /> */}
+      {/* {console.log(tempField)} */}
     </DashboardLayout>
   );
 }
