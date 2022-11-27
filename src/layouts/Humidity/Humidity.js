@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // @mui material components
 import Grid from "@mui/material/Grid";
@@ -21,9 +21,20 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 import Projects from "layouts/dashboard/components/Projects";
 import { useLocation, NavLink } from "react-router-dom";
 function Humidity() {
-  const { sales, tasks } = reportsLineChartData;
+  const [db, setDb] = useState([]);
 
-  const [TemperatueField, setTemperatueField] = useState(2);
+  const getDb = async () => {
+    const response = await fetch(
+      "https://api.thingspeak.com/channels/1945231/feeds.json?api_key=Z14F9ZWPU177Z30I&results=10"
+    );
+    const data = await response.json();
+    setDb(data);
+  };
+
+  useEffect(() => {
+    getDb();
+  }, []);
+
   return (
     <DashboardLayout>
       {/* <DashboardNavbar /> */}
@@ -42,14 +53,15 @@ function Humidity() {
                 <ReportsLineChart
                   color="success"
                   title="Humidity"
-                  description={
-                    // <>
-                    //   (<strong>+15%</strong>) increase in today sales.
-                    // </>
-                    "Humidity detected"
-                  }
+                  description={"Humidity detected"}
                   date="last detected"
-                  chart={sales}
+                  chart={{
+                    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    datasets: {
+                      label: "Humidity",
+                      data: db?.feeds?.map((item) => item.field2)
+                    }
+                  }}
                 />
               </MDBox>
 

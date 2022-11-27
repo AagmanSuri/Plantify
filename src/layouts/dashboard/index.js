@@ -22,57 +22,6 @@ import Projects from "layouts/dashboard/components/Projects";
 import { useLocation, NavLink } from "react-router-dom";
 
 function Dashboard() {
-  // const [data, setData] = useState([]);
-  // const [tempField, setTempField] = useState([]);
-  // const [createdAt, setCreatedAt] = useState([]);
-  // useEffect(() => {
-  //   fetch(
-  //     "https://api.thingspeak.com/channels/1945231/feeds.json?api_key=Z14F9ZWPU177Z30I&results=10"
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setData(data);
-  //     });
-  //   // .then(() => {
-  //   //   // const tempFieldinput1 = data?.feeds?.map((item) => {
-  //   //   //   return item?.field1;
-  //   //   // });
-  //   //   // const createdAtInput = data?.feeds?.map((item) => {
-  //   //   //   return item?.created_at;
-  //   //   // });
-  //   //   setTempField(
-  //   //     data?.feeds?.map((item) => {
-  //   //       return item?.field1;
-  //   //     })
-  //   //   );
-  //   //   setCreatedAt(
-  //   //     data?.feeds?.map((item) => {
-  //   //       return item?.created_at;
-  //   //     })
-  //   //   );
-  //   // });
-  // }, [data]);
-
-  // const tempFieldinput1 = data?.feeds?.map((item) => {
-  //   return item?.field1;
-  // });
-  // const createdAtInput = data?.feeds?.map((item) => {
-  //   return item?.created_at;
-  // });
-
-  // useEffect(() => {
-  //   setTempField(
-  //     data?.feeds?.map((item) => {
-  //       return item?.field1;
-  //     })
-  //   );
-  //   setCreatedAt(
-  //     data?.feeds?.map((item) => {
-  //       return item?.created_at;
-  //     })
-  //   );
-  // }, []);
-
   const [db, setDb] = useState([]);
 
   const getDb = async () => {
@@ -88,9 +37,6 @@ function Dashboard() {
   }, []);
 
   console.log(db);
-  const { sales, tasks } = reportsLineChartData;
-
-  const [TemperatueField, setTemperatueField] = useState(2);
 
   return (
     <DashboardLayout>
@@ -103,7 +49,7 @@ function Dashboard() {
                 color="dark"
                 icon="leaderboard"
                 title="Total Entries"
-                count={281}
+                count={77}
                 percentage={{
                   // color: "success",
                   // amount: "+55%",
@@ -117,7 +63,7 @@ function Dashboard() {
               <ComplexStatisticsCard
                 icon="leaderboard"
                 title="Temperature"
-                count={TemperatueField + "°c"}
+                count={28 + "°c"}
                 percentage={{
                   // color: "success",
                   // amount: "+3%",
@@ -132,7 +78,7 @@ function Dashboard() {
                 color="success"
                 icon="leaderboard"
                 title="Humidity"
-                count="34"
+                count="48"
                 percentage={{
                   // color: "success",
                   // amount: "+1%",
@@ -147,7 +93,7 @@ function Dashboard() {
                 color="primary"
                 icon="leaderboard"
                 title="Soil Moisture"
-                count="91"
+                count="1023"
                 percentage={{
                   // color: "success",
                   // amount: "",
