@@ -22,57 +22,72 @@ import Projects from "layouts/dashboard/components/Projects";
 import { useLocation, NavLink } from "react-router-dom";
 
 function Dashboard() {
-  const [data, setData] = useState([]);
-  const [tempField, setTempField] = useState([]);
-  const [createdAt, setCreatedAt] = useState([]);
-  useEffect(() => {
-    fetch(
+  // const [data, setData] = useState([]);
+  // const [tempField, setTempField] = useState([]);
+  // const [createdAt, setCreatedAt] = useState([]);
+  // useEffect(() => {
+  //   fetch(
+  //     "https://api.thingspeak.com/channels/1945231/feeds.json?api_key=Z14F9ZWPU177Z30I&results=10"
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setData(data);
+  //     });
+  //   // .then(() => {
+  //   //   // const tempFieldinput1 = data?.feeds?.map((item) => {
+  //   //   //   return item?.field1;
+  //   //   // });
+  //   //   // const createdAtInput = data?.feeds?.map((item) => {
+  //   //   //   return item?.created_at;
+  //   //   // });
+  //   //   setTempField(
+  //   //     data?.feeds?.map((item) => {
+  //   //       return item?.field1;
+  //   //     })
+  //   //   );
+  //   //   setCreatedAt(
+  //   //     data?.feeds?.map((item) => {
+  //   //       return item?.created_at;
+  //   //     })
+  //   //   );
+  //   // });
+  // }, [data]);
+
+  // const tempFieldinput1 = data?.feeds?.map((item) => {
+  //   return item?.field1;
+  // });
+  // const createdAtInput = data?.feeds?.map((item) => {
+  //   return item?.created_at;
+  // });
+
+  // useEffect(() => {
+  //   setTempField(
+  //     data?.feeds?.map((item) => {
+  //       return item?.field1;
+  //     })
+  //   );
+  //   setCreatedAt(
+  //     data?.feeds?.map((item) => {
+  //       return item?.created_at;
+  //     })
+  //   );
+  // }, []);
+
+  const [db, setDb] = useState([]);
+
+  const getDb = async () => {
+    const response = await fetch(
       "https://api.thingspeak.com/channels/1945231/feeds.json?api_key=Z14F9ZWPU177Z30I&results=10"
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-      });
-    // .then(() => {
-    //   // const tempFieldinput1 = data?.feeds?.map((item) => {
-    //   //   return item?.field1;
-    //   // });
-    //   // const createdAtInput = data?.feeds?.map((item) => {
-    //   //   return item?.created_at;
-    //   // });
-    //   setTempField(
-    //     data?.feeds?.map((item) => {
-    //       return item?.field1;
-    //     })
-    //   );
-    //   setCreatedAt(
-    //     data?.feeds?.map((item) => {
-    //       return item?.created_at;
-    //     })
-    //   );
-    // });
-  }, []);
-
-  const tempFieldinput1 = data?.feeds?.map((item) => {
-    return item?.field1;
-  });
-  const createdAtInput = data?.feeds?.map((item) => {
-    return item?.created_at;
-  });
+    );
+    const data = await response.json();
+    setDb(data);
+  };
 
   useEffect(() => {
-    setTempField(
-      data?.feeds?.map((item) => {
-        return item?.field1;
-      })
-    );
-    setCreatedAt(
-      data?.feeds?.map((item) => {
-        return item?.created_at;
-      })
-    );
+    getDb();
   }, []);
 
+  console.log(db);
   const { sales, tasks } = reportsLineChartData;
 
   const [TemperatueField, setTemperatueField] = useState(2);
@@ -162,7 +177,7 @@ function Dashboard() {
                       labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                       datasets: {
                         label: "Temperature",
-                        data: tempField
+                        data: db?.feeds?.map((item) => item.field1)
                       }
                     }}
                   />
@@ -176,18 +191,13 @@ function Dashboard() {
                   <ReportsLineChart
                     color="success"
                     title="Humidity"
-                    description={
-                      // <>
-                      //   (<strong>+15%</strong>) increase in today sales.
-                      // </>
-                      "Humidity detected"
-                    }
+                    description={"Humidity detected"}
                     date="last detected"
                     chart={{
                       labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                       datasets: {
-                        label: "Temperature",
-                        data: tempField
+                        label: "Humidity",
+                        data: db?.feeds?.map((item) => item.field2)
                       }
                     }}
                   />
@@ -202,7 +212,13 @@ function Dashboard() {
                     title="Soil Moisture"
                     description="Soil Moisture detected"
                     date="last detected"
-                    chart={tasks}
+                    chart={{
+                      labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                      datasets: {
+                        label: "Soil Moisture",
+                        data: db?.feeds?.map((item) => item.field3)
+                      }
+                    }}
                   />
                 </MDBox>
               </NavLink>
@@ -221,6 +237,7 @@ function Dashboard() {
         </MDBox>
       </MDBox>
       {/* <Footer /> */}
+
       {/* {console.log(tempField)} */}
     </DashboardLayout>
   );
