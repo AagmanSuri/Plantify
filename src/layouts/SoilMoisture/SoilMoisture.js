@@ -22,6 +22,7 @@ import Projects from "layouts/dashboard/components/Projects";
 import { useLocation, NavLink } from "react-router-dom";
 function SoilMoisture() {
   const [db, setDb] = useState([]);
+  const [localUpdateTime, setlocalUpdateTime] = useState("");
 
   const getDb = async () => {
     const response = await fetch(
@@ -34,6 +35,17 @@ function SoilMoisture() {
   useEffect(() => {
     getDb();
   }, []);
+
+  const getTime = async () => {
+    var utcDate = db?.feeds && db?.feeds[9]?.created_at.toString();
+    var localDate = new Date(utcDate);
+    console.log(localDate.toString());
+    setlocalUpdateTime(localDate);
+  };
+
+  useEffect(() => {
+    getTime();
+  }, [db]);
 
   return (
     <DashboardLayout>
@@ -129,10 +141,7 @@ function SoilMoisture() {
           <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
             Last updated @ :{" "}
           </span>
-          <strong>
-            {db.feeds && Date(db?.feeds[9]?.created_at).slice(0, 15)}
-            {"  "} , {db.feeds && Date(db?.feeds[9]?.created_at).slice(16, 25)}
-          </strong>
+          <strong>{localUpdateTime.toString().slice(0, 24)}</strong>
         </div>
         <div>
           <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>

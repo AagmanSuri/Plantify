@@ -23,6 +23,7 @@ import { useLocation, NavLink } from "react-router-dom";
 
 function Dashboard() {
   const [db, setDb] = useState([]);
+  const [localUpdateTime, setlocalUpdateTime] = useState("");
 
   const getDb = async () => {
     const response = await fetch(
@@ -37,6 +38,17 @@ function Dashboard() {
   }, []);
 
   console.log(db);
+
+  const getTime = async () => {
+    var utcDate = db?.feeds && db?.feeds[9]?.created_at.toString();
+    var localDate = new Date(utcDate);
+    console.log(localDate.toString());
+    setlocalUpdateTime(localDate);
+  };
+
+  useEffect(() => {
+    getTime();
+  }, [db]);
 
   return (
     <DashboardLayout>
@@ -53,10 +65,11 @@ function Dashboard() {
                 percentage={{
                   // color: "success",
                   // amount: "+55%",
-                  label: `${
-                    db.feeds && Date(db?.feeds[9]?.created_at).slice(0, 15)
-                  },
-             ${db.feeds && Date(db?.feeds[9]?.created_at).slice(16, 25)}`
+                  //       label: `${
+                  //         db.feeds && Date(db?.feeds[9]?.created_at).slice(0, 15)
+                  //       },
+                  //  ${db.feeds && Date(db?.feeds[9]?.created_at).slice(16, 25)}`
+                  label: localUpdateTime.toString().slice(0, 24)
                 }}
               />
             </MDBox>
@@ -121,12 +134,7 @@ function Dashboard() {
                     color="info"
                     title="Temperature"
                     description="Temperature detected"
-                    date={
-                      db.feeds &&
-                      Date(db?.feeds[9]?.created_at).slice(0, 15) +
-                        "  " +
-                        Date(db?.feeds[9]?.created_at).slice(16, 25)
-                    }
+                    date={localUpdateTime.toString().slice(0, 24)}
                     chart={{
                       labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                       datasets: {
@@ -146,12 +154,7 @@ function Dashboard() {
                     color="success"
                     title="Humidity"
                     description={"Humidity detected"}
-                    date={
-                      db.feeds &&
-                      Date(db?.feeds[9]?.created_at).slice(0, 15) +
-                        "  " +
-                        Date(db?.feeds[9]?.created_at).slice(16, 25)
-                    }
+                    date={localUpdateTime.toString().slice(0, 24)}
                     chart={{
                       labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                       datasets: {
@@ -170,12 +173,7 @@ function Dashboard() {
                     color="dark"
                     title="Soil Moisture"
                     description="Soil Moisture detected"
-                    date={
-                      db.feeds &&
-                      Date(db?.feeds[9]?.created_at).slice(0, 15) +
-                        "  " +
-                        Date(db?.feeds[9]?.created_at).slice(16, 25)
-                    }
+                    date={localUpdateTime.toString().slice(0, 24)}
                     chart={{
                       labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                       datasets: {

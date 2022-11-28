@@ -22,7 +22,7 @@ import Projects from "layouts/dashboard/components/Projects";
 import { useLocation, NavLink } from "react-router-dom";
 function Temperature() {
   const [db, setDb] = useState([]);
-
+  const [localUpdateTime, setlocalUpdateTime] = useState("");
   const getDb = async () => {
     const response = await fetch(
       "https://api.thingspeak.com/channels/1945231/feeds.json?api_key=Z14F9ZWPU177Z30I&results=10"
@@ -34,6 +34,17 @@ function Temperature() {
   useEffect(() => {
     getDb();
   }, []);
+
+  const getTime = async () => {
+    var utcDate = db?.feeds && db?.feeds[9]?.created_at.toString();
+    var localDate = new Date(utcDate);
+    console.log(localDate.toString());
+    setlocalUpdateTime(localDate);
+  };
+
+  useEffect(() => {
+    getTime();
+  }, [db]);
   return (
     <DashboardLayout>
       {/* <DashboardNavbar /> */}
@@ -130,8 +141,9 @@ function Temperature() {
             Last updated @ :{" "}
           </span>
           <strong>
-            {db.feeds && Date(db?.feeds[9]?.created_at).slice(0, 15)}
-            {"  "} , {db.feeds && Date(db?.feeds[9]?.created_at).slice(16, 25)}
+            {/* {db.feeds && Date(db?.feeds[9]?.created_at).slice(0, 15)}
+            {"  "} , {db.feeds && Date(db?.feeds[9]?.created_at).slice(16, 25)} */}
+            {localUpdateTime.toString().slice(0, 24)}
           </strong>
         </div>
         <div>
