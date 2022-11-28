@@ -49,7 +49,7 @@ function Dashboard() {
                 color="dark"
                 icon="leaderboard"
                 title="Total Entries"
-                count={77}
+                count={db && db?.channel?.last_entry_id}
                 percentage={{
                   // color: "success",
                   // amount: "+55%",
@@ -63,7 +63,7 @@ function Dashboard() {
               <ComplexStatisticsCard
                 icon="leaderboard"
                 title="Temperature"
-                count={28 + "°c"}
+                count={db.feeds && db?.feeds[9]?.field1 + "°c"}
                 percentage={{
                   // color: "success",
                   // amount: "+3%",
@@ -78,7 +78,7 @@ function Dashboard() {
                 color="success"
                 icon="leaderboard"
                 title="Humidity"
-                count="48"
+                count={db.feeds && db?.feeds[9]?.field2}
                 percentage={{
                   // color: "success",
                   // amount: "+1%",
@@ -93,7 +93,7 @@ function Dashboard() {
                 color="primary"
                 icon="leaderboard"
                 title="Soil Moisture"
-                count="1023"
+                count={db.feeds && db?.feeds[9]?.field3}
                 percentage={{
                   // color: "success",
                   // amount: "",
@@ -151,7 +151,7 @@ function Dashboard() {
               </NavLink>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
-              <NavLink key="humidity" to="/humidity">
+              <NavLink key="SoilMoisture" to="/SoilMoisture">
                 <MDBox mb={3}>
                   <ReportsLineChart
                     color="dark"
