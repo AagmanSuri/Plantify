@@ -129,7 +129,10 @@ function SoilMoisture() {
           <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
             Last updated @ :{" "}
           </span>
-          <strong>{db?.channel && db?.channel?.updated_at}</strong>
+          <strong>
+            {db.feeds && Date(db?.feeds[9]?.created_at).slice(0, 15)}
+            {"  "} , {db.feeds && Date(db?.feeds[9]?.created_at).slice(16, 25)}
+          </strong>
         </div>
         <div>
           <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>

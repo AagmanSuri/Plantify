@@ -53,7 +53,16 @@ function Dashboard() {
                 percentage={{
                   // color: "success",
                   // amount: "+55%",
-                  label: "Total feed entries"
+                  label: `${
+                    db.feeds && Date(db?.feeds[9]?.created_at).slice(0, 15)
+                  },
+             ${db.feeds && Date(db?.feeds[9]?.created_at).slice(16, 25)}`
+
+                  //   label: `Date:${
+                  //     db.feeds && (db?.feeds[9]?.created_at).slice(0, 10)
+                  //   } Time :${
+                  //     db.feeds && (db?.feeds[9]?.created_at).slice(11, 19)
+                  //   }`
                 }}
               />
             </MDBox>
