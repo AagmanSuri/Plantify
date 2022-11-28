@@ -49,7 +49,7 @@ function SoilMoisture() {
                 sx={{ textDecoration: "none" }}
               > */}
 
-              <MDBox mb={3}>
+              <MDBox mb={1}>
                 <ReportsLineChart
                   color="dark"
                   title="Soil Moisture"
@@ -101,6 +101,45 @@ function SoilMoisture() {
         </MDBox>
       </MDBox>
       {/* <Footer /> */}
+      <Grid>
+        <h1>Analysis :-</h1>
+        <div>
+          <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+            Average of (10) :{"  "}
+          </span>
+          <strong>
+            {db.feeds &&
+              db.feeds
+                .map((item) => {
+                  return Number(item.field3);
+                })
+                .reduce((acc, cur) => {
+                  var total = Number(acc) + Number(cur) / 10;
+                  return total;
+                }, 0)}
+          </strong>
+        </div>
+        <div>
+          <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+            Last updated value :{" "}
+          </span>
+          <strong>{db?.feeds && db?.feeds[9]?.field3}</strong>
+        </div>
+        <div>
+          <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+            Last updated @ :{" "}
+          </span>
+          <strong>{db?.channel && db?.channel?.updated_at}</strong>
+        </div>
+        <div>
+          <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+            Change from last value :{" "}
+          </span>
+          <strong>
+            {db?.channel && db?.feeds[9]?.field3 - db?.feeds[8]?.field3}
+          </strong>
+        </div>
+      </Grid>
     </DashboardLayout>
   );
 }
