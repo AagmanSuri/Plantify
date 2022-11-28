@@ -57,12 +57,6 @@ function Dashboard() {
                     db.feeds && Date(db?.feeds[9]?.created_at).slice(0, 15)
                   },
              ${db.feeds && Date(db?.feeds[9]?.created_at).slice(16, 25)}`
-
-                  //   label: `Date:${
-                  //     db.feeds && (db?.feeds[9]?.created_at).slice(0, 10)
-                  //   } Time :${
-                  //     db.feeds && (db?.feeds[9]?.created_at).slice(11, 19)
-                  //   }`
                 }}
               />
             </MDBox>
@@ -127,7 +121,12 @@ function Dashboard() {
                     color="info"
                     title="Temperature"
                     description="Temperature detected"
-                    date="last detected"
+                    date={
+                      db.feeds &&
+                      Date(db?.feeds[9]?.created_at).slice(0, 15) +
+                        "  " +
+                        Date(db?.feeds[9]?.created_at).slice(16, 25)
+                    }
                     chart={{
                       labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                       datasets: {
@@ -147,7 +146,12 @@ function Dashboard() {
                     color="success"
                     title="Humidity"
                     description={"Humidity detected"}
-                    date="last detected"
+                    date={
+                      db.feeds &&
+                      Date(db?.feeds[9]?.created_at).slice(0, 15) +
+                        "  " +
+                        Date(db?.feeds[9]?.created_at).slice(16, 25)
+                    }
                     chart={{
                       labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                       datasets: {
@@ -166,7 +170,12 @@ function Dashboard() {
                     color="dark"
                     title="Soil Moisture"
                     description="Soil Moisture detected"
-                    date="last detected"
+                    date={
+                      db.feeds &&
+                      Date(db?.feeds[9]?.created_at).slice(0, 15) +
+                        "  " +
+                        Date(db?.feeds[9]?.created_at).slice(16, 25)
+                    }
                     chart={{
                       labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                       datasets: {
