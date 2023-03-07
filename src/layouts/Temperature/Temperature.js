@@ -25,7 +25,7 @@ function Temperature() {
   const [localUpdateTime, setlocalUpdateTime] = useState("");
   const getDb = async () => {
     const response = await fetch(
-      "https://api.thingspeak.com/channels/1945231/feeds.json?api_key=Z14F9ZWPU177Z30I&results=10"
+      "https://api.thingspeak.com/channels/2030237/feeds.json?api_key=QLM3JLYV2U7W0PDI&results=10"
     );
     const data = await response.json();
     setDb(data);
@@ -69,8 +69,8 @@ function Temperature() {
                       labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                       datasets: {
                         label: "Temperature",
-                        data: db?.feeds?.map((item) => item.field1)
-                      }
+                        data: db?.feeds?.map((item) => item.field1),
+                      },
                     }}
                   />
                 </MDBox>
