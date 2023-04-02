@@ -152,6 +152,21 @@ function Humidity() {
             {db?.channel && db?.feeds[9]?.field2 - db?.feeds[8]?.field2}
           </strong>
         </div>
+        <div>
+          <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+            Status :{" "}
+            <strong>
+              {db?.channel && db?.feeds[9]?.field2 > 60
+                ? "Normal"
+                : "Critically Low"}
+            </strong>
+          </span>
+        </div>
+        <div>
+          <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+            Safe Range : <strong>Greater than 60</strong>
+          </span>
+        </div>
       </Grid>
     </DashboardLayout>
   );

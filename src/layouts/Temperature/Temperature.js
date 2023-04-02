@@ -154,6 +154,19 @@ function Temperature() {
             {db?.channel && db?.feeds[9]?.field1 - db?.feeds[8]?.field1}
           </strong>
         </div>
+        <div>
+          <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+            Status :{" "}
+            <strong>
+              {db?.channel && db?.feeds[9]?.field1 > 30 ? "High" : "Normal"}
+            </strong>
+          </span>
+        </div>
+        <div>
+          <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+            Safe Range : <strong>26-30 °C</strong>
+          </span>
+        </div>
       </Grid>
     </DashboardLayout>
   );

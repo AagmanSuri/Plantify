@@ -69,7 +69,7 @@ function Dashboard() {
                   //         db.feeds && Date(db?.feeds[9]?.created_at).slice(0, 15)
                   //       },
                   //  ${db.feeds && Date(db?.feeds[9]?.created_at).slice(16, 25)}`
-                  label: localUpdateTime.toString().slice(0, 24)
+                  label: localUpdateTime.toString().slice(0, 24),
                 }}
               />
             </MDBox>
@@ -83,7 +83,7 @@ function Dashboard() {
                 percentage={{
                   // color: "success",
                   // amount: "+3%",
-                  label: "Last detected temperature"
+                  label: "Last detected temperature",
                 }}
               />
             </MDBox>
@@ -98,7 +98,7 @@ function Dashboard() {
                 percentage={{
                   // color: "success",
                   // amount: "+1%",
-                  label: "Last detected humidity"
+                  label: "Last detected humidity",
                 }}
               />
             </MDBox>
@@ -113,7 +113,7 @@ function Dashboard() {
                 percentage={{
                   // color: "success",
                   // amount: "",
-                  label: "Last detected Soil Moisture"
+                  label: "Last detected Soil Moisture",
                 }}
               />
             </MDBox>
@@ -139,8 +139,8 @@ function Dashboard() {
                       labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                       datasets: {
                         label: "Temperature",
-                        data: db?.feeds?.map((item) => item.field1)
-                      }
+                        data: db?.feeds?.map((item) => item.field1),
+                      },
                     }}
                   />
                 </MDBox>
@@ -159,8 +159,8 @@ function Dashboard() {
                       labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                       datasets: {
                         label: "Humidity",
-                        data: db?.feeds?.map((item) => item.field2)
-                      }
+                        data: db?.feeds?.map((item) => item.field2),
+                      },
                     }}
                   />
                 </MDBox>
@@ -178,8 +178,8 @@ function Dashboard() {
                       labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                       datasets: {
                         label: "Soil Moisture",
-                        data: db?.feeds?.map((item) => item.field3)
-                      }
+                        data: db?.feeds?.map((item) => item.field3),
+                      },
                     }}
                   />
                 </MDBox>

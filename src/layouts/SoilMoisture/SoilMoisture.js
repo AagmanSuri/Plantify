@@ -151,6 +151,21 @@ function SoilMoisture() {
             {db?.channel && db?.feeds[9]?.field3 - db?.feeds[8]?.field3}
           </strong>
         </div>
+        <div>
+          <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+            Status :{" "}
+            <strong>
+              {db?.channel && db?.feeds[9]?.field2 > 50
+                ? "Normal"
+                : "Critically Low"}
+            </strong>
+          </span>
+        </div>
+        <div>
+          <span style={{ fontSize: "1.2rem", fontWeight: "bold" }}>
+            Safe Range : <strong>Greater than 50%</strong>
+          </span>
+        </div>
       </Grid>
     </DashboardLayout>
   );
