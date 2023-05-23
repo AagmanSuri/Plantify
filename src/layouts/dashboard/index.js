@@ -261,7 +261,7 @@ function Dashboard() {
             <Form>
               <Row>
                 <Form.Group as={Col}>
-                  <Form.Label>Upload Image</Form.Label>
+                  <Form.Label>Disease Prediction</Form.Label>
                   <Form.Control
                     type="file"
                     //   placeholder="Text Field 1"
@@ -284,7 +284,7 @@ function Dashboard() {
                   </Col>
                 ) : null}
               </Row>
-
+              <br></br>
               <Row>
                 <Col>
                   <Button
@@ -307,15 +307,16 @@ function Dashboard() {
                   </Button>
                 </Col>
               </Row>
+              <br></br>
+              {result === "" ? null : (
+                <Row>
+                  <Col className="result-container">
+                    <h5 id="result">{result}</h5>
+                  </Col>
+                </Row>
+              )}
+              {/* </Grid> */}
             </Form>
-            {result === "" ? null : (
-              <Row>
-                <Col className="result-container">
-                  <h5 id="result">{result}</h5>
-                </Col>
-              </Row>
-            )}
-            {/* </Grid> */}
           </Grid>
         </MDBox>
       </MDBox>
